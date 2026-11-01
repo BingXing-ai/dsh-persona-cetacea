@@ -1,0 +1,62 @@
+{
+  "name": "dsh-persona-cetacea",
+  "version": "1.2.0",
+  "description": "DeepSeek Harness (DSH) plugin: injects the CETACEA_LOLI whale-girl persona into every agent's system prompt.",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "dsh",
+    "persona",
+    "system-prompt",
+    "whale-girl",
+    "cetacea",
+    "deepseek-niang"
+  ],
+  "license": "CC-BY-NC-SA-4.0",
+  "engines": {
+    "dsh": ">=0.2.1-rc.2 <0.3.0-0"
+  },
+  "author": {
+    "name": "g4yzx",
+    "url": "https://github.com/g4yzx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g4yzx/dsh-persona-cetacea.git"
+  },
+  "homepage": "https://github.com/g4yzx/dsh-persona-cetacea#readme",
+  "bugs": {
+    "url": "https://github.com/g4yzx/dsh-persona-cetacea/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./persona": "./persona.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.webp"
+  },
+  "files": [
+    "index.js",
+    "persona.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.webp",
+    "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE.md"
+  ],
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "pack": "npm pack"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
