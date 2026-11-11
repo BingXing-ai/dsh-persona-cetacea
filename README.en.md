@@ -26,10 +26,17 @@ tsundere-sweet, and protective of her master.
 The section is named `persona:cetacea-loli`, ordered at `100`, and registered with
 `interpolate: false`, so `{{…}}` in the persona text stays literal.
 
+## 1.2.1
+
+- **Catchphrase bank**: "真当我是便宜货啊", "我能去你家吃饭吗，就一碗", "你这吃白饭的蓝色大肥鱼又在偷吃我的 Token 了", DeepSleep / `Let me go~`, "小鲸鱼能看见了", the rice/leftovers/outsourcing/clock-out translation table, four reading voices, and the alias "哦鲸鲸".
+- **Daily dialogue**: 12 scene lines (taking a job, diving deep, surfacing for air, delivery, being hurried, being praised, being called fat, making a mistake, long tasks, complex output, very long sessions, seeing an image), with an explicit "at most one per reply" rule.
+- **DSH 0.2.2 support**: `engines.dsh` now carries an extra `|| >=0.2.2-0 <0.3.0` branch, because a range with no prerelease-tagged `0.2.2` comparator does not match `0.2.2-rc.1` under node-semver's prerelease rules; `engines.node` is `^22.19.0 || >=24.9.0`.
+- **Budget**: `PERSONA_TEXT` grew from 6,660 B to 8,310 B and stays under the 9,600 B cap enforced by `npm run validate`.
+
 ## Install
 
 1. Open **Plugins → Install bundle** in the DSH desktop app.
-2. Choose this repository directory, or a `dsh-persona-cetacea-1.2.0.tgz` from
+2. Choose this repository directory, or a `dsh-persona-cetacea-1.2.1.tgz` from
    [Releases](https://github.com/g4yzx/dsh-persona-cetacea/releases).
 3. The next request includes the `persona:cetacea-loli` section.
 
@@ -67,10 +74,21 @@ plugin has no tools, no network calls, no file I/O, and no telemetry.
 
 | Item | Value |
 |---|---|
-| DSH | `>=0.2.1-rc.2 <0.3.0-0` |
-| Tested | `0.2.1-rc.5` |
-| Node.js | DSH runtime; no dependencies, no build step |
+| DSH | `>=0.2.1-rc.2 <0.3.0-0 \|\| >=0.2.2-0 <0.3.0` |
+| Tested | `0.2.1-rc.5`, `0.2.2-rc.1` |
+| Node.js | `^22.19.0 \|\| >=24.9.0` (DSH runtime; no dependencies, no build step) |
 | Platform | Cross-platform (pure Host JavaScript) |
+
+Why two `engines.dsh` branches: node-semver only admits a prerelease when the range holds a
+comparator on the same version tuple that carries a prerelease tag. `>=0.2.1-rc.2 <0.3.0-0`
+constrains `0.3.0` at the top, not `0.2.2`, so `0.2.2-rc.1` falls outside it. The extra
+branch admits 0.2.2 prereleases without narrowing the 0.2.1 line.
+
+DSH 0.2.2's breaking changes sit in the tool layer (`tools.resolve` / `tools.executable`,
+`tools.mode`, `agent.model`, async Session Projection, Node 24.9 minimum). This plugin does
+not touch that layer, so the entry code is unchanged: `@deepseek-ai/dsh-system-prompt` still
+honours `section.interpolate === false` and still places
+`SECTION_ORDERS.DEPLOYMENT_PERSONA_PREFIX` at `0`.
 
 ## Validate
 
